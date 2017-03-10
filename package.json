@@ -1,0 +1,25 @@
+{
+  "name": "iiab-menu",
+  "version": "1.0.0",
+  "description": "NodeJS based menu for iiab",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darkenvy/iiab-menu.git"
+  },
+  "author": "Reno McKenzie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darkenvy/iiab-menu/issues"
+  },
+  "homepage": "https://github.com/darkenvy/iiab-menu#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "fs": "0.0.1-security"
+  }
+}
