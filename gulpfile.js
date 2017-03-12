@@ -10,8 +10,8 @@ var BROWSER_SYNC_RELOAD_DELAY = 500;
 gulp.task('nodemon', function (cb) {
   var called = false;
   return nodemon({
-    script: 'app.js', // nodemon our expressjs server
-    watch: ['app.js'] // watch core server file(s) that require server restart on change
+    script: 'index.js', // nodemon our expressjs server
+    watch: ['index.js'] // watch core server file(s) that require server restart on change
   })
   .on('start', function onStart() {
     // ensure start only got called once

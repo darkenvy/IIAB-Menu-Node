@@ -1,35 +1,10 @@
 <% include partials/header.ejs %>
 
-<script>
-  // Put the list of menu items here
-  
+<!-- <div id="" class="content-item" dir="auto">Attempting to load</div>   -->
 
-</script>
-
-<body>
-    <div id="header">
-      <div style="padding-left: 80%; padding-top: 30px;">
-        <img id="btn-feedback" src="/menu-files/images/button_feedback.png">
-      </div>
-    </div>
-
-    <div class="haut cf">
-      <ul>
-        <li><a href="http://schoolserver.xsce.org" target="_blank">Internet in a Box School Server</a></li>
-        <li><a href="/menu-files/html/credits.html">Credits</a></li>
-      </ul>
-    </div>
-
-    <div id="content"></div>
-
-    <div class="haut cf" style="margin-bottom: 80px;">
-      <ul>
-        <li><a href="http://schoolserver.lan" target="_blank">Internet in a Box School Server</a></li>
-        <li><a href="/menu-files/html/credits.html">Credits</a></li>
-      </ul>
-      <div id="footer_right">Internet in a Box</div>
-    </div>
-
+<div id="content">
+  <% include partials/menu-item.ejs %>
+</div>
 
 <% include partials/feedback-form %>
 <% include partials/footer.ejs %>
