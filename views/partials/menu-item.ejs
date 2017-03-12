@@ -19,12 +19,9 @@
 
     <!-- ================= URL Link Start ================= -->
     <h2>
-      <a href="<% if (data[item]['intended_use'] == 'kalite') { %> 
-          <%= domain.split(':')[0] + data[item]['href_path'] %>
-        <% } else { %>
-          <%= data[item]['href_path'] %>
-        <% } %>
-      "><%= data[item]['intended_use'] + ' ' + data[item].title %></a>
+      <a href="<%= 'http://' + domain.split(':')[0] + data[item]['href_path'] %>">
+        <%= data[item]['intended_use'] + ' ' + data[item].title %>
+      </a>
     </h2>
     <!-- URL Link End -->
 

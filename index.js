@@ -35,22 +35,22 @@ function init() {
     function createHref(obje) {
       switch (obje['intended_use']) {
         case 'zim':
-          obje['href_path'] = obje.zim_name;
+          obje['href_path'] = ':3000/' + obje.zim_name;
           break;
         case 'html':
-          obje['href_path'] = 'modules/' + obje.moddir;
+          obje['href_path'] = '/modules/' + obje.moddir;
           break;
         case 'webroot':
           obje['href_path'] = '/' + obje.moddir;
           break;
         case 'kalite':
-          obje['href_path'] = ':8008'
+          obje['href_path'] = ':8008/'
           break;
         case 'osm':
           obje['href_path'] = '/iiab/static/map.html'
           break;
         default:
-          obje['href_path'] = '#'
+          obje['href_path'] = '/#'
           console.log('');
       }
       return obje;
@@ -75,4 +75,5 @@ app.get('/', function(req,res) {
 });
 
 init();
+console.log('listening on port 4000');
 app.listen(4000);
