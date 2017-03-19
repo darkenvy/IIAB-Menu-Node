@@ -1,10 +1,11 @@
-<% include partials/header.ejs %>
+<div class="container">
+  <% include partials/header.ejs %>
+  
+  <!-- Add flex to the class of #menu-item-parent to enable another view -->
+  <div id="menu-item-parent" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <% include partials/menu-item.ejs %>
+  </div>
 
-<!-- <div id="" class="content-item" dir="auto">Attempting to load</div>   -->
-
-<div id="content">
-  <% include partials/menu-item.ejs %>
+  <% include partials/feedback-form %>
+  <% include partials/footer.ejs %>
 </div>
-
-<% include partials/feedback-form %>
-<% include partials/footer.ejs %>

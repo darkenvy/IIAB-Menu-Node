@@ -1,35 +1,74 @@
 <% Object.keys(data).forEach(function(item) { %>
-  <div class="content-item">
+  <div class="content-item col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <!-- <div class="content-item"> -->
     
-
     <!-- =================== ICON Start =================== -->
     <!-- a href is the same as the H2 url link -->
-    <a href="<%= domain.split(':')[0] + data[item]['href_path'] %>">
-      <img src="/menu-files/images/<%= data[item]['logo_url'] %>" 
-           alt="<%= data[item].title %>"
-      />
-    </a>
-    <!-- ICON End -->
-
-
-    <!-- ================= URL Link Start ================= -->
-    <h2>
-      <a href="<%= 'http://' + domain.split(':')[0] + data[item]['href_path'] %>">
-        <%= data[item]['intended_use'] + ' ' + data[item].title %>
+    <div class="content-icon col-xs-2 col-sm-2 col-md-2 col-lg-2">
+      <a href="<%= domain.split(':')[0] + data[item]['href_path'] %>">
+        <img src="/menu-files/images/<%= data[item]['logo_url'] %>" 
+             alt="<%= data[item].title %>"
+        />
       </a>
-    </h2>
-    <!-- URL Link End -->
-
-    <% if (data[item]['extra_html_file']) { %>
-      EXTRA_HTML GOES HERE
-    <% } %>
+    </div>
+    <!-- =================== ICON End ===================== -->
 
 
 
-    <p>
-      <%- data[item].description %>
-    </p>
+
+    <div class="content-data col-xs-10 col-sm-10 col-md-10 col-lg-10">
+
+      <!-- ================= URL Link Start ================= -->
+      <h2 class="content-link">
+        <a href="<%= 'http://' + domain.split(':')[0] + data[item]['href_path'] %>">
+          <%= data[item]['intended_use'] + ' ' + data[item].title %>
+        </a>
+      </h2>
+      <!-- =================== URL Link End ================== -->
 
 
+
+
+
+      <!-- =================== Description Start ================== -->
+      <p class="content-desc">
+        <%- data[item].description %>
+      </p>
+      <!-- =================== Description End ==================== -->
+
+
+
+
+
+
+      <!-- ================= Extra HTML Start ================= -->
+      <div class="content-extra-html">
+        <% if (data[item]['extra_html']) { %>
+          <ul>
+          <% for (var result in data[item]['extra_html']) { %>
+            
+
+            <!-- There are two type currently: link & paragraph -->
+            <!-- Each has it's own styling                      -->
+            <% if (data[item]['extra_html'][result].type == "link") { %>
+              <li>
+                <a href="<%= data[item]['extra_html'][result].href %>">
+                  <%= data[item]['extra_html'][result].text %>
+                </a>
+              </li>
+            <% } else if (data[item]['extra_html'][result].type == "paragraph") { %>
+              <p><%= data[item]['extra_html'][result].text %></p>
+            <% } %>
+
+
+          <% } %>
+          </ul>
+        <% } %>
+      </div>
+      <!-- ================= Extra HTML End ==================== -->
+    
+
+    </div>
+    
   </div>
 <% }) %>
