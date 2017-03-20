@@ -95,6 +95,7 @@ h3 {
 /*-------------------------------------------*/
 /*          Flexbox Rules                    */
 /*-------------------------------------------*/
+
 .flex {
   display: flex;
   flex-direction: row;
@@ -124,4 +125,21 @@ h3 {
 
 .flex .content-data {
   display: none;
+}
+
+/*-------------------------------------------*/
+/*             col-xs Rules                  */
+/*-------------------------------------------*/
+
+@media (max-width: 767px) {
+  /* Set icon max when on mobile & center */
+  .content-icon img {
+    max-width: 200px;
+    float: none;
+    margin: 0 auto;
+    display: block;
+  }
+  .content-link {
+    text-align: center;
+  }
 }
