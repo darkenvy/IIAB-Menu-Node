@@ -20,7 +20,7 @@
    "zip_http_url":null,
    "file_count":"838",
    "menu_item_name":"en-afristory",
-   "extra_html": [
+   "extra": [
       {
         "type": "link",
         "href": "english.html",

@@ -22,19 +22,12 @@ function init() {
     // Some JSONs can have illegal starting chars. This cleans them up
     // Find the cause of this. This shouldn't be a problem.
     var illegalChecker = fileIn.toString();
-    while (illegalChecker[0] !== '{') { 
-      illegalChecker = illegalChecker.slice(1, illegalChecker.length) 
-    }
+    while (illegalChecker[0] !== '{') illegalChecker = illegalChecker.slice(1, illegalChecker.length);
 
     try { 
       obj = JSON.parse(illegalChecker);
-      // if (obj.hasOwnProperty('extra_html') && obj['extra_html'] !== '') {
-      //   obj = getExtraHtml(obj);
-      // }
       allMenuItems[item] = createHref(obj);
-    } catch (e) {
-      // console.log('Illegal Characters in file: ', item, e)
-    }
+    } catch (e) {}
 
     // function getExtraHtml(obje) {
     //   var xtra = fs.readFileSync('./menu-files/menu-defs/' + obje['extra_html'], 'utf8');
@@ -76,8 +69,6 @@ function init() {
 // +========================================================================+ //
 
 app.get('/', function(req,res) {
-  // console.log(Object.keys({data: allMenuItems}.data));
-  // console.log(req);
   res.render('index.ejs', {
     data: allMenuItems,
     domain: req.headers.host
