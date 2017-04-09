@@ -12,6 +12,7 @@ function getContentList() {
       modules = fs.readdirSync('/library/www/html/modules/'),
       zims = fs.readFileSync('/library/zims/library.xml', 'utf8'),
       removeMenuItem = function(item) {
+        console.log('REMOVING ', item);
         var itemIdx = enabledMetadata.indexOf(item);
         if (itemIdx !== -1) enabledMetadata.splice(itemIdx, 1);
       };

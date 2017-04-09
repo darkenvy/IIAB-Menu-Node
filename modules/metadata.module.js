@@ -1,6 +1,8 @@
 var fs         = require('fs'),
     xmlParse   = require('xml2js').parseString;
 
+
+
 // Obtain a list of all json files on startup.
 var jsonMetadataList = (function(){
   return fs.readdirSync('./metadata').filter(function(each) {
@@ -9,7 +11,10 @@ var jsonMetadataList = (function(){
 })();
 
 function createMetadata(jsonObject) {
+  console.log('inside CM');
+  console.log(jsonObject);
   if (!jsonObject['moddir']) return;
+  console.log('passed guard');
   var obj = {
     "intended_use" :   jsonObject['intended_use'],
     "moddir" :         jsonObject['moddir'],
@@ -19,21 +24,27 @@ function createMetadata(jsonObject) {
     "menu_item_name" : jsonObject['menu_item_name'] || jsonObject['moddir'],
     "title" :          jsonObject['title']          || jsonObject['moddir']
   }
-  fs.writeFile('./metadata/' + obj.moddir + '.json', JSON.stringify(obj), function(e) {
+  console.log('about to write');
+  fs.writeFile('./metadata/' + obj.moddir + '', "test", 'utf8', function(e) {
+    console.log('YESSSSS-----------------------');
     if (e) console.log('error writing metadata: ', e);
   });
+  console.log('passed func');
 }
 
 function metadata(modules, zims, osm, webroot, kalite) {
   // Check to see if premade metadata exists. If not, we call createMetadata to make it.
-  var enabledMetadata = [];
+  var enabledMetadata = [
+    'usb.json',
+    'kalite.json',
+    'osm.json'
+  ];
 
   // --- Modules (html) --- //
   modules.forEach(function(folder) {
     var folderWithExt = folder + '.json';
     enabledMetadata.push(folderWithExt);
     if (jsonMetadataList.indexOf(folderWithExt) === -1) {
-      console.log('create json ', folderWithExt)
       createMetadata({
         intended_use: 'html',
         moddir: folder,
@@ -53,7 +64,6 @@ function metadata(modules, zims, osm, webroot, kalite) {
         var zimPathWithExt = zimPath + '.json';
         enabledMetadata.push(zimPathWithExt);
         if (jsonMetadataList.indexOf(zimPathWithExt) === -1) {
-          console.log('create json2: ', zimPathWithExt);
           var longDescription = `${zimList[zim]['$'].description}. Made by ${zimList[zim]['$'].creator} ${zimList[zim]['$'].publisher}. ${zimList[zim]['$'].articleCount} Articles`
           createMetadata({
             intended_use: 'zim',
@@ -71,8 +81,6 @@ function metadata(modules, zims, osm, webroot, kalite) {
 
   // --- Webroot --- //
   if (jsonMetadataList.indexOf('usb.json') === -1) {
-    console.log('create json5: ', 'usb.json');
-    enabledMetadata.push('usb.json');
     createMetadata({
       intended_use: 'usb',
       moddir: 'usb',
@@ -86,8 +94,6 @@ function metadata(modules, zims, osm, webroot, kalite) {
 
   // --- KALite --- //
   if (jsonMetadataList.indexOf('kalite.json') === -1) {
-    console.log('create json3: ', 'kalite.json');
-    enabledMetadata.push('kalite.json');
     createMetadata({
       intended_use: 'kalite',
       moddir: 'kalite',
@@ -100,8 +106,6 @@ function metadata(modules, zims, osm, webroot, kalite) {
 
   // --- OSM --- //
   if (jsonMetadataList.indexOf('osm.json') === -1) {
-    console.log('create json4: ', 'osm.json');
-    enabledMetadata.push('osm.json');
     createMetadata({
       intended_use: 'osm',
       moddir: 'osm',
