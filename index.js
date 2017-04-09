@@ -1,15 +1,15 @@
 var express    = require('express'),
-fs         = require('fs'),
-bodyParser = require('body-parser'),
-xmlParse   = require('xml2js').parseString,
+    fs         = require('fs'),
+    bodyParser = require('body-parser'),
+    xmlParse   = require('xml2js').parseString,
     // menuItems  = require('./menuItems.module');
     menuItems  = [];
 
-    var app = express();
-    var allMenuItems = {};
-    app.set('view-engine', 'bodyParser');
-    app.use(bodyParser.urlencoded({ extended: false }));
-    app.use('/menu-files', express.static('menu-files'));
+var app = express();
+var allMenuItems = {};
+app.set('view-engine', 'bodyParser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/menu-files', express.static('menu-files'));
 
 // +========================================================================+ //
 // |                          Initialization                                | //
@@ -70,9 +70,39 @@ function init() {
 // |                         Find Content Packs                             | //
 // +========================================================================+ //
 
-function createMetadata() {}
+var jsonMetadataList = (function(){
+  return fs.readdirSync('./metadata').filter(function(each) {
+    return /\.json/.test(each); // Only return .json files
+  });
+})();
 
-function metadata() {}
+function createMetadata(jsonObject) {
+  if (!jsonObject['moddir']) return;
+  var obj = {
+    "intended_use" :   jsonObject['intended_use'],
+    "moddir" :         jsonObject['moddir'],
+    "description" :    jsonObject['description']    || '',
+    "lang" :           jsonObject['lang']           || 'en',
+    "logo_url" :       jsonObject['logo_url']       || 'content.jpg',
+    "menu_item_name" : jsonObject['menu_item_name'] || jsonObject['moddir'],
+    "title" :          jsonObject['title']          || jsonObject['moddir']
+  }
+  fs.writeFile('./metadata/' + obj.moddir + '.json', JSON.stringify(obj), function(e) {
+    if (e) console.log('error writing metadata: ', e);
+  });
+}
+
+function metadata(modules, zims, osm, webroot, kalite) {
+  // Check to see if premade metadata exists. If not, we make it.
+  // If we have metadata already (zims have some), we override that with the json data
+  // we assume the json has the most important data. As it takes more effort to have one created.
+  // So... we create metadata for zims.
+  modules.forEach(function() {
+
+  })
+
+  // if (jsonMetadataList.indexOf(moduleName) === -1) createMetadata();
+}
 
 // Primary function that looks for content. Doesn't look for JSON metadata made by IIAB
 function getContent() {
@@ -92,7 +122,7 @@ function getContent() {
   var osm     = true;
   var webroot = true;
   var kalite  = true;
-  // var zims = fs.readFileSync('/library/zims/library.xml', 'utf8');
+  var zims = fs.readFileSync('/library/zims/library.xml', 'utf8');
   // xmlParse(zims, {trim: true, normalize: true, firstCharLowerCase: true}, function(err, data) {
   //   console.log(Object.keys(data.library.book))
   //   if (data && data.library && data.library.book) {
@@ -102,6 +132,8 @@ function getContent() {
   //     } 
   //   }
   // });
+
+  metadata(modules, osm, webroot, kalite, zims);
 
 
 

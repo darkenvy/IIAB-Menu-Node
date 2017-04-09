@@ -1,0 +1,104 @@
+{  
+   "rating":"0.0",
+   "age_range":"children,young adult",
+   "zip_ftp_url":null,
+   "module_id":"45",
+   "is_hidden":false,
+   "intended_use":"html",
+   "category":"educational,entertainment",
+   "title":"African Storybook Project",
+   "prereq_id":null,
+   "moddir":"en-afristory",
+   "ksize":"490760",
+   "logo_url":"en-afristory.jpg",
+   "description":"A collection of illustrated children's stories from many African cultures.",
+   "index_mod_sample_url":"http://dev.worldpossible.org/cgi/sample_wrap.php?moddir=en-afristory",
+   "source_url":"http://www.africanstorybook.org/",
+   "rsync_url":"rsync://dev.worldpossible.org/rachelmods/en-afristory",
+   "lang":"en",
+   "prereq_note":"",
+   "zip_http_url":null,
+   "file_count":"838",
+   "menu_item_name":"en-afristory",
+   "extra": [
+      {
+        "type": "link",
+        "href": "english.html",
+        "text": "English"
+      },
+      {
+        "type": "link",
+        "href": "afrikaans.html",
+        "text": "Afrikaans"
+      },
+      {
+        "type": "link",
+        "href": "isindebele.html",
+        "text": "isiNdebele"
+      },
+      {
+        "type": "link",
+        "href": "isixhosa.html",
+        "text": "isiXhosa"
+      },
+      {
+        "type": "link",
+        "href": "isizulu.html",
+        "text": "isiZulu"
+      },
+      {
+        "type": "link",
+        "href": "sepedi.html",
+        "text": "Sepedi"
+      },
+      {
+        "type": "link",
+        "href": "sesotho-lesotho.html",
+        "text": "Sesotho (Lesotho)"
+      },
+      {
+        "type": "link",
+        "href": "sesotho-safrica.html",
+        "text": "Sesotho (South Africa)"
+      },
+      {
+        "type": "link",
+        "href": "setswana.html",
+        "text": "Setswana"
+      },
+      {
+        "type": "link",
+        "href": "siswati.html",
+        "text": "Siswati"
+      },
+      {
+        "type": "link",
+        "href": "tshivenda.html",
+        "text": "Tshivenda"
+      },
+      {
+        "type": "link",
+        "href": "xitsonga.html",
+        "text": "Xitsonga"
+      },
+      {
+        "type": "paragraph",
+        "text": "These stories are in Swahili, Ma and English, the languages that are spoken in northern Tanzania."
+      },
+      {
+        "type": "link",
+        "href": "swahili.html",
+        "text": "Kiswahili"
+      },
+      {
+        "type": "link",
+        "href": "maa.html",
+        "text": "Maa"
+      },
+      {
+        "type": "link",
+        "href": "english2.html",
+        "text": "English"
+      }
+   ]
+}
