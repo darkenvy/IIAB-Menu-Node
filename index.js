@@ -30,6 +30,5 @@ menuItems    = getContentList();
 allMenuItems = init(menuItems);
 
 console.log(menuItems);
-// console.log(allMenuItems);
 console.log('listening on port 4000');
 app.listen(4000);
