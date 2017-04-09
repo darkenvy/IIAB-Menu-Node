@@ -96,12 +96,13 @@ function createMetadata(jsonObject) {
 
 function metadata(modules, zims, osm, webroot, kalite) {
   // Check to see if premade metadata exists. If not, we call createMetadata to make it.
-  
+  var enabledMetadata = [];
+
   // --- Modules (html) --- //
   modules.forEach(function(folder) {
     var folderWithExt = folder + '.json';
+    enabledMetadata.push(folderWithExt);
     if (jsonMetadataList.indexOf(folderWithExt) === -1) {
-      jsonMetadataList.push(folderWithExt);
       console.log('create json ', folderWithExt)
       createMetadata({
         intended_use: 'html',
@@ -120,10 +121,10 @@ function metadata(modules, zims, osm, webroot, kalite) {
       for (var zim in zimList) {
         var zimPath = zimList[zim]['$'].path.match(/\/(.+?)\.zim/)[1];
         var zimPathWithExt = zimPath + '.json';
+        enabledMetadata.push(zimPathWithExt);
         if (jsonMetadataList.indexOf(zimPathWithExt) === -1) {
           console.log('create json2: ', zimPathWithExt);
           var longDescription = `${zimList[zim]['$'].description}. Made by ${zimList[zim]['$'].creator} ${zimList[zim]['$'].publisher}. ${zimList[zim]['$'].articleCount} Articles`
-          jsonMetadataList.push(zimPathWithExt);
           createMetadata({
             intended_use: 'zim',
             moddir: zimPath,
@@ -141,7 +142,7 @@ function metadata(modules, zims, osm, webroot, kalite) {
   // --- Webroot --- //
   if (jsonMetadataList.indexOf('usb.json') === -1) {
     console.log('create json5: ', 'usb.json');
-    jsonMetadataList.push('usb.json');
+    enabledMetadata.push('usb.json');
     createMetadata({
       intended_use: 'usb',
       moddir: 'usb',
@@ -156,7 +157,7 @@ function metadata(modules, zims, osm, webroot, kalite) {
   // --- KALite --- //
   if (jsonMetadataList.indexOf('kalite.json') === -1) {
     console.log('create json3: ', 'kalite.json');
-    jsonMetadataList.push('kalite.json');
+    enabledMetadata.push('kalite.json');
     createMetadata({
       intended_use: 'kalite',
       moddir: 'kalite',
@@ -170,7 +171,7 @@ function metadata(modules, zims, osm, webroot, kalite) {
   // --- OSM --- //
   if (jsonMetadataList.indexOf('osm.json') === -1) {
     console.log('create json4: ', 'osm.json');
-    jsonMetadataList.push('osm.json');
+    enabledMetadata.push('osm.json');
     createMetadata({
       intended_use: 'osm',
       moddir: 'osm',
@@ -181,7 +182,7 @@ function metadata(modules, zims, osm, webroot, kalite) {
     });
   }
 
-
+  return enabledMetadata;
 }
 
 function getContent() {
@@ -191,18 +192,18 @@ function getContent() {
       modules = fs.readdirSync('/library/www/html/modules/'),
       zims = fs.readFileSync('/library/zims/library.xml', 'utf8'),
       removeMenuItem = function(item) {
-        var itemIdx = jsonMetadataList.indexOf(item);
-        if (itemIdx !== -1) jsonMetadataList.splice(itemIdx, 1);
+        var itemIdx = enabledMetadata.indexOf(item);
+        if (itemIdx !== -1) enabledMetadata.splice(itemIdx, 1);
       };
   
   // Check the lists of content that we just aquired. Ensures that JSONs exists for each content pack
-  metadata(modules, zims, osm, webroot, kalite);
+  var enabledMetadata = metadata(modules, zims, osm, webroot, kalite);
   
   // Remove items if they are specified to not be in the instance (activated)
   if (!osm)     removeMenuItem('osm.json');
   if (!webroot) removeMenuItem('usb.json');
   if (!kalite)  removeMenuItem('kalite.json');
-  return jsonMetadataList;
+  return enabledMetadata;
 }
 
 // +========================================================================+ //
@@ -217,6 +218,7 @@ app.get('/', function(req,res) {
 });
 
 menuItems = getContent();
+console.log(menuItems);
 init();
 console.log('listening on port 4000');
 app.listen(4000);
