@@ -18,7 +18,8 @@ app.use('/menu-files', express.static('menu-files'));
 function init() {
   // Initialize big object of all JSON data for rendering
   menuItems.forEach(function(item) {
-    var fileIn = fs.readFileSync('./menu-files/menu-defs/' + item + '.json', 'utf8');
+    // var fileIn = fs.readFileSync('./menu-files/menu-defs/' + item + '.json', 'utf8');
+    var fileIn = fs.readFileSync('./metadata/' + item, 'utf8');
     var obj = {};
 
     // Some JSONs can have illegal starting chars. This cleans them up
@@ -70,6 +71,7 @@ function init() {
 // |                         Find Content Packs                             | //
 // +========================================================================+ //
 
+// Obtain a list of all json files on startup.
 var jsonMetadataList = (function(){
   return fs.readdirSync('./metadata').filter(function(each) {
     return /\.json/.test(each); // Only return .json files
@@ -93,51 +95,114 @@ function createMetadata(jsonObject) {
 }
 
 function metadata(modules, zims, osm, webroot, kalite) {
-  // Check to see if premade metadata exists. If not, we make it.
-  // If we have metadata already (zims have some), we override that with the json data
-  // we assume the json has the most important data. As it takes more effort to have one created.
-  // So... we create metadata for zims.
-  modules.forEach(function() {
+  // Check to see if premade metadata exists. If not, we call createMetadata to make it.
+  
+  // --- Modules (html) --- //
+  modules.forEach(function(folder) {
+    var folderWithExt = folder + '.json';
+    if (jsonMetadataList.indexOf(folderWithExt) === -1) {
+      jsonMetadataList.push(folderWithExt);
+      console.log('create json ', folderWithExt)
+      createMetadata({
+        intended_use: 'html',
+        moddir: folder,
+        logo_url: 'content.jpg',
+        menu_item_name: folder,
+        title: folder.replace(/\W/g, ' ') // replace symbols with spaces
+      });
+    }
+  });
 
-  })
+  // --- Zims --- //
+  xmlParse(zims, {trim: true, normalize: true, firstCharLowerCase: true}, function(err, data) {
+    if (data && data.library && data.library.book) {
+      var zimList = data.library.book;
+      for (var zim in zimList) {
+        var zimPath = zimList[zim]['$'].path.match(/\/(.+?)\.zim/)[1];
+        var zimPathWithExt = zimPath + '.json';
+        if (jsonMetadataList.indexOf(zimPathWithExt) === -1) {
+          console.log('create json2: ', zimPathWithExt);
+          var longDescription = `${zimList[zim]['$'].description}. Made by ${zimList[zim]['$'].creator} ${zimList[zim]['$'].publisher}. ${zimList[zim]['$'].articleCount} Articles`
+          jsonMetadataList.push(zimPathWithExt);
+          createMetadata({
+            intended_use: 'zim',
+            moddir: zimPath,
+            logo_url: 'wikipedia.png',
+            menu_item_name: zimPath,
+            title: zimList[zim]['$'].title,
+            lang: zimList[zim]['$'].language || null,
+            description: longDescription || zimList[zim]['$'].description || ''
+          });
+        }
+      }
+    }
+  });
 
-  // if (jsonMetadataList.indexOf(moduleName) === -1) createMetadata();
+  // --- Webroot --- //
+  if (jsonMetadataList.indexOf('usb.json') === -1) {
+    console.log('create json5: ', 'usb.json');
+    jsonMetadataList.push('usb.json');
+    createMetadata({
+      intended_use: 'usb',
+      moddir: 'usb',
+      logo_url: 'en-file_share.png',
+      menu_item_name: 'usb_material',
+      title: 'USB Materoa;',
+      description: 'Additional materials'
+    });
+  }
+
+
+  // --- KALite --- //
+  if (jsonMetadataList.indexOf('kalite.json') === -1) {
+    console.log('create json3: ', 'kalite.json');
+    jsonMetadataList.push('kalite.json');
+    createMetadata({
+      intended_use: 'kalite',
+      moddir: 'kalite',
+      logo_url: 'kaos.png',
+      menu_item_name: 'kalite',
+      title: 'Khan Academy',
+      description: 'Videos on math and science'
+    });
+  }
+
+  // --- OSM --- //
+  if (jsonMetadataList.indexOf('osm.json') === -1) {
+    console.log('create json4: ', 'osm.json');
+    jsonMetadataList.push('osm.json');
+    createMetadata({
+      intended_use: 'osm',
+      moddir: 'osm',
+      logo_url: 'osm.jpg',
+      menu_item_name: 'open_street_maps',
+      title: 'Open Street Maps',
+      description: 'Internet-in-a-box OpenStreetMaps'
+    });
+  }
+
+
 }
 
-// Primary function that looks for content. Doesn't look for JSON metadata made by IIAB
 function getContent() {
-  // Looko for content in all places.
-  // If found, check if we have a menu-def json
-  // problem is, we may not. So a generic template will have to be made form metadata
-  // html = rachel
-  // webroot = 
-  // kalite = :8008
-  // osm = /iiab/static/map.html
-  // zim = :3000
-
-  // zims may need to be defined last as the async func is used.
-  // zim meta-data from library-xml:
-  // book id, path, indexPath, indexType, title, description, language, creator, publisher, faviconMimeType, date, articleCount, mediaCount, size
-  var modules = fs.readdirSync('/library/www/html/modules/');
-  var osm     = true;
-  var webroot = true;
-  var kalite  = true;
-  var zims = fs.readFileSync('/library/zims/library.xml', 'utf8');
-  // xmlParse(zims, {trim: true, normalize: true, firstCharLowerCase: true}, function(err, data) {
-  //   console.log(Object.keys(data.library.book))
-  //   if (data && data.library && data.library.book) {
-  //     var zimList = data.library.book;
-  //     for (var zim in zimList) {
-  //       console.log(zimList[zim]['$'].title)
-  //     } 
-  //   }
-  // });
-
-  metadata(modules, osm, webroot, kalite, zims);
-
-
-
-  return ["en-afristory"];
+  var osm     = true,
+      webroot = true,
+      kalite  = true,
+      modules = fs.readdirSync('/library/www/html/modules/'),
+      zims = fs.readFileSync('/library/zims/library.xml', 'utf8'),
+      removeMenuItem = function(item) {
+        var itemIdx = jsonMetadataList.indexOf(item);
+        if (itemIdx !== -1) jsonMetadataList.splice(itemIdx, 1);
+      };
+  
+  // Check the lists of content that we just aquired. Ensures that JSONs exists for each content pack
+  metadata(modules, zims, osm, webroot, kalite);
+  
+  // Remove items if they are specified to not be in the instance (activated)
+  if (!osm)     removeMenuItem('osm.json');
+  if (!webroot) removeMenuItem('usb.json');
+  if (!kalite)  removeMenuItem('kalite.json');
+  return jsonMetadataList;
 }
 
 // +========================================================================+ //
