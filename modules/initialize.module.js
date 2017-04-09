@@ -11,7 +11,6 @@ function init(items) {
   var allMenuItems = {}
   // Initialize big object of all JSON data for rendering
   items.forEach(function(item) {
-    // console.log('item: ', item);
     var fileIn = fs.readFileSync('./metadata/' + item, 'utf8');
     var obj = {};
     // Some JSONs can have illegal starting chars. This cleans them up

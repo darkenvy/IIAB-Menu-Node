@@ -1,6 +1,6 @@
 var express        = require('express'),
     fs             = require('fs'),
-    getContentList = require('./modules/content.module'),
+    getContentList = require('./modules/getcontent.module'),
     init           = require('./modules/initialize.module'),
     app            = express(),
     allMenuItems   = {};
@@ -12,8 +12,6 @@ var express        = require('express'),
 // +========================================================================+ //
 // |                              Routes                                    | //
 // +========================================================================+ //
-
-fs.writeFile('test','sample', {encoding: 'utf8', flag: 'w'}, function(e) {});
 
 app.use('/public', express.static('views/public'));
 // Removing Apache from port 80 (so that node can bind to it) makes us lose

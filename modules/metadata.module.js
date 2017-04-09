@@ -2,7 +2,6 @@ var fs         = require('fs'),
     xmlParse   = require('xml2js').parseString;
 
 
-
 // Obtain a list of all json files on startup.
 var jsonMetadataList = (function(){
   return fs.readdirSync('./metadata').filter(function(each) {
@@ -11,10 +10,7 @@ var jsonMetadataList = (function(){
 })();
 
 function createMetadata(jsonObject) {
-  console.log('inside CM');
-  console.log(jsonObject);
   if (!jsonObject['moddir']) return;
-  console.log('passed guard');
   var obj = {
     "intended_use" :   jsonObject['intended_use'],
     "moddir" :         jsonObject['moddir'],
@@ -24,12 +20,7 @@ function createMetadata(jsonObject) {
     "menu_item_name" : jsonObject['menu_item_name'] || jsonObject['moddir'],
     "title" :          jsonObject['title']          || jsonObject['moddir']
   }
-  console.log('about to write');
-  fs.writeFile('./metadata/' + obj.moddir + '', "test", 'utf8', function(e) {
-    console.log('YESSSSS-----------------------');
-    if (e) console.log('error writing metadata: ', e);
-  });
-  console.log('passed func');
+  fs.writeFileSync('./metadata/' + obj.moddir + '.json', JSON.stringify(obj));
 }
 
 function metadata(modules, zims, osm, webroot, kalite) {
