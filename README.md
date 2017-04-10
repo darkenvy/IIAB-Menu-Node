@@ -7,16 +7,20 @@
 No official deamon is used currently. `forever` will probably be used. We are using gulp.js for development as it injects browser-sync into the page for development convenience.
 
 
+Now the process I detailed below is so that I can simulate the page running on port 80, while having my development tools enabled. Do you need this? No. Simply run `node index.js` and open a browser to `localhost:4000`.
+
+
+## Using Gulp (optional)
 When using gulp, we host on port 4000, gulp proxies to port 8080, and we use iptables to redirect port 80 to 8080 (or 8081 if 8080 is bound to). Yes, gulp probably doesn't need to proxy, but during development it got built up this way; seeing as this is a development tool, it's not worth spending time to adjust.
 
 
 We will need to unbind port 80 from Apache and bind Apache to port 81 (currently not reserved to my knowledge)
 
-vim `/etc/https/conf/httpd.conf` => line42: change "listen 80" to "listen 81"
+vim `/etc/httpd/conf/httpd.conf` => line42: change "listen 80" to "listen 81"
 
 `sudo iptables -t nat -A OUTPUT -o lo -p tcp --dport 80 -j REDIRECT --to-port 8080`
 
-## Why?
+## Why Redo the Frontpage?
 * With this setup, we can identify content packs on the fly. Specifically, only on node start/restart.
 * The rendering is done by the server instead of the client. The rendered results contain no JS and we can even push back our HTML to HTML4 standards.
 * This results in higher compatibility and REALLY small transfer sizes.

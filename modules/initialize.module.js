@@ -29,22 +29,22 @@ function init(items) {
 function createHref(obje) {
   switch (obje['intended_use']) {
     case 'zim':
-      obje['href_path'] = ':3000/' + obje.zim_name;
+      obje['href_path'] = ':3000/' + obje.moddir + '/?';
     break;
     case 'html':
-      obje['href_path'] = '/modules/' + obje.moddir;
+      obje['href_path'] = ':81/modules/' + obje.moddir;
     break;
     case 'webroot':
-      obje['href_path'] = '/' + obje.moddir;
+      obje['href_path'] = ':81/' + obje.moddir;
     break;
     case 'kalite':
       obje['href_path'] = ':8008/';
     break;
     case 'osm':
-      obje['href_path'] = '/iiab/static/map.html';
+      obje['href_path'] = ':81/iiab/static/map.html';
     break;
     default:
-      obje['href_path'] = '/#';
+      obje['href_path'] = ':81/local_content/';
   }
   return obje;
 }

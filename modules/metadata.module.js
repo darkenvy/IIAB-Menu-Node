@@ -77,7 +77,7 @@ function metadata(modules, zims, osm, webroot, kalite) {
       moddir: 'usb',
       logo_url: 'en-file_share.png',
       menu_item_name: 'usb_material',
-      title: 'USB Materoa;',
+      title: 'USB Material',
       description: 'Additional materials'
     });
   }
