@@ -1,11 +1,16 @@
-<div class="container">
-  <% include partials/header.ejs %>
-  
-  <!-- Add flex to the class of #menu-item-parent to enable another view -->
-  <div id="menu-item-parent" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    <% include partials/menu-item.ejs %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Internet In A Box</title>
+  <!-- <link rel="stylesheet" type="text/css" href="/public/vendor/css/reset.css"> -->
+  <link rel="stylesheet" href="/public/vendor/css/pure-min.css"/>
+  <link rel="stylesheet" href="/public/css/index2.css">
+</head>
+<body>
+  <div class="container pure-g margin-auto">
+    <% include partials/each-menu-item.ejs %>
   </div>
 
-  <% include partials/feedback-form %>
   <% include partials/footer.ejs %>
-</div>
+</body>
+</html>

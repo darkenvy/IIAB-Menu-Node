@@ -5,12 +5,12 @@ body {
 }
 
 /*-------------------------------------------*/
-/*              CSS Reset                    */
+/*              CSS                     */
 /*-------------------------------------------*/
 a {
   color: #249;
   text-decoration: none;
-  outline: none; /* don't outline image links (ff) */
+  outline: none; 
 }
 a:hover { text-decoration: underline; }
 a:visited { color: #649; }

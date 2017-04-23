@@ -1,0 +1,26 @@
+<div class="content-extra-html">
+  <% if (data[item]['extra']) { %>
+    <ul>
+    <% for (var piece in data[item]['extra']) { %>
+      
+      <!-- There are two type currently: link & paragraph -->
+      <!-- Each has it's own styling                      -->
+
+      <!-- If Link... -->
+      <% if (data[item]['extra'][piece].type == "link") { %>
+        <li>
+          <a href="<%= data[item]['extra'][piece].href %>">
+            <%= data[item]['extra'][piece].text %>
+          </a>
+        </li>
+
+      <!-- If Paragraph... -->
+      <% } else if (data[item]['extra'][piece].type == "paragraph") { %>
+        <p><%= data[item]['extra'][piece].text %></p>
+      <% } %>
+
+
+    <% } %>
+    </ul>
+  <% } %>
+</div>

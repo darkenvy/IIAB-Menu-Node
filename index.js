@@ -26,7 +26,9 @@ app.get('/', function(req,res) {
   });
 });
 
-menuItems    = getContentList();
+menuItems = ['usb.json', 'kalite.json', 'osm.json'];
+// When not developing on a pi, disable the next line.
+// menuItems    = getContentList();
 allMenuItems = init(menuItems);
 
 console.log(menuItems);

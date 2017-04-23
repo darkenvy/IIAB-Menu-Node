@@ -1,0 +1,84 @@
+/* Initial */
+body {
+  /*background-image: url('../vendor/images/lightpaperfibers.png');*/
+  background-image: url('../vendor/images/sayagata-400px.png');
+  font-family: 'Open Sans', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+}
+
+.pure {
+  float: left; /* Patches inline-block's default spacing */
+  box-sizing: border-box;
+}
+
+/* Helpers */
+
+.center {
+  text-align: center;
+}
+
+.margin-auto {
+  margin: 0 auto;
+}
+
+/* Initial Overrides */
+
+a {
+  text-decoration: none;
+  font-size: 120%;
+  font-weight: 300;
+  color: #445;
+}
+
+p {
+  color: #334;
+}
+
+ul {
+  list-style-type: none;
+  letter-spacing: initial;
+  font-size: 80%;
+}
+
+li {
+  display: inline;
+}
+
+
+/* Global Styles */
+.container {
+  max-width: 1024px;
+  background-color: white;
+  border: 1px solid #00527B;
+  margin-top: 25px;
+  border-radius: 10px;
+}
+
+.header {
+  background-color: #004669;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.content {
+  margin: 10px 25px;
+}
+
+.content-text {
+  padding-left: 20px;
+}
+
+.pure-img {
+  width: 100%;
+  max-width: 150px;
+  margin: 0 auto;
+}
+
+.divider {
+  height: 1px;
+  background-color: #DDD;
+}
+
+/* Custom Styles */
+.navbar a {
+  color: white;
+}

@@ -1,0 +1,21 @@
+<% include header.ejs %>
+<% Object.keys(data).forEach(function(item, idx) { %>
+  <div class="content pure-u-24-24">
+    
+    <div class="icon pure pure-u-1-4">
+      <% include menu-item-parts/icon.ejs %>        <!-- ICON        -->
+    </div>
+
+    <% if (idx > 0) { %>
+      <div class="divider pure pure-u-3-4"></div>
+    <% } %>
+
+    <div class="content-text pure pure-u-3-4">
+      <% include menu-item-parts/url-link.ejs %>    <!-- URL LINK    -->
+      <% include menu-item-parts/description.ejs %> <!-- DESCRIPTION -->
+      <% include menu-item-parts/extra-html.ejs %>  <!-- EXTRA HTML  -->
+    </div>
+
+
+  </div>
+<% }) %>
