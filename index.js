@@ -1,3 +1,4 @@
+/* globals menuItems: true */
 var express        = require('express'),
     fs             = require('fs'),
     getContentList = require('./modules/getcontent.module'),
@@ -26,8 +27,8 @@ app.get('/', function(req,res) {
   });
 });
 
+// When not developing on a pi, disable the next line. and enable the following
 menuItems = ['usb.json', 'kalite.json', 'osm.json'];
-// When not developing on a pi, disable the next line.
 // menuItems    = getContentList();
 allMenuItems = init(menuItems);
 
