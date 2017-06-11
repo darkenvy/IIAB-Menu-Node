@@ -1,1 +1,9 @@
-{"intended_use":"kalite","moddir":"kalite","description":"Videos on math and science","lang":"en","logo_url":"kaos.png","menu_item_name":"kalite","title":"Khan Academy"}
+{
+  "intended_use": "kalite",
+  "moddir": "kalite",
+  "description": "Videos on math and science",
+  "lang": "en",
+  "logo_url": "kaos.png",
+  "menu_item_name": "kalite",
+  "title": "Khan Academy"
+}

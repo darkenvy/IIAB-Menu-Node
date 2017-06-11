@@ -1,1 +1,9 @@
-{"intended_use":"usb","moddir":"usb","description":"Additional materials","lang":"en","logo_url":"en-file_share.png","menu_item_name":"usb_material","title":"USB Material"}
+{
+  "intended_use": "usb",
+  "moddir": "usb",
+  "description": "Additional materials",
+  "lang": "en",
+  "logo_url": "usb.png",
+  "menu_item_name": "usb_material",
+  "title": "USB Material"
+}
